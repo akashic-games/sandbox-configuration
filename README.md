@@ -45,6 +45,15 @@ const utils = require("@akashic/sandbox-configuration/lib/utils");
 const externalValue = utils.getServeExternalValue("./path/to/plugin.js");
 ```
 
+### sandbox.config.js を正規化処理をする場合
+```javascript
+const utils = require("@akashic/sandbox-configuration/lib/utils");
+
+...
+
+utils.normalize(sandboxConfig);
+```
+
 ## テスト方法
 
 ```

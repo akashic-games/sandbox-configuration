@@ -25,7 +25,8 @@ export function normalize(sandboxConfig: SandboxConfiguration): void {
 	const { events, autoSendEvents, autoSendEventName } = sandboxConfig;
 
 	if (!autoSendEventName && events && autoSendEvents && events[autoSendEvents] instanceof Array) {
-		// TODO: `autoSendEvents` は非推奨。互換性のためこのパスを残しているが、`autoSendEvents` の削除時にこのパスも削除する。
+		// TODO: `autoSendEvents` は非推奨。`autoSendEvents` の削除時にこのパスも削除する。
+		// 非推奨の `autoSendEvents` のみの場合、`autoSendEventName` に値を差し替える。
 		console.warn("[deprecated] `autoSendEvents` in sandbox.config.js is deprecated. Please use `autoSendEventName`.");
 		sandboxConfig.autoSendEventName = autoSendEvents;
 	}
