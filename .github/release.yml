@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+
 env:
   NODE_VERSION: 16
   cache-version: v1
