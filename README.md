@@ -42,7 +42,7 @@ const utils = require("@akashic/sandbox-configuration/lib/utils");
 
 ...
 
-const externalValue = utils.getServeExternalValue("./path/to/plugin.js");
+const externalValue = utils.getServerExternalValue(sandboxConfig);
 ```
 
 ### sandbox.config.js を正規化処理をする場合
@@ -50,8 +50,7 @@ const externalValue = utils.getServeExternalValue("./path/to/plugin.js");
 const utils = require("@akashic/sandbox-configuration/lib/utils");
 
 ...
-
-utils.normalize(sandboxConfig);
+const config = utils.normalize(sandboxConfig);
 ```
 
 ## テスト方法
