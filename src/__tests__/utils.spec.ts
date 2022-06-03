@@ -33,42 +33,88 @@ describe("utils", () => {
 		}
 	};
 
-	describe("getServeExternalValue()", () => {
-		it("Argument file exist", () => {
-			const obj = utils.getServeExternalValue("src/__tests__/fixtures/testPlugin.js");
-			expect(obj().test()).toBeTruthy();
+	describe("getServerExternalValue", () => {
+		it("server.external exist", () => {
+			const conf: SandboxConfiguration = {
+				server: {
+					external: {
+						testPlugin: "src/__tests__/fixtures/testPlugin.js"
+					}
+				}
+			};
+			const obj = utils.getServerExternalValue(conf);
+			expect(obj().testPlugin.test()).toBeTruthy();
+			expect(obj().testPlugin.hoge()).toBe("hoge");
 		});
 
-		it("Argument file does not exist", () => {
-			expect(() => {
-				utils.getServeExternalValue("nofile.js");
-			}).toThrow(/^Failed to evaluating externalScript \(nofile.js\).*/);
+		it("server.external does not exist", () => {
+			const conf: SandboxConfiguration = {
+				server: {
+					external: {}
+				}
+			};
+			const obj = utils.getServerExternalValue(conf);
+			console.log(obj());
+			expect(Object.keys(obj).length).toBe(0);
 		});
 
-		it("Argument file does not exist", () => {
+		it("plugin file does not exist", () => {
+			const conf: SandboxConfiguration = {
+				server: {
+					external: {
+						noFilePlugin: "src/__tests__/fixtures/noFilePlugin.js"
+					}
+				}
+			};
 			expect(() => {
-				utils.getServeExternalValue("src/__tests__/fixtures/failPlugin.js");
-			}).toThrow(/^src\/__tests__\/fixtures\/failPlugin.js, given as externalScript.*/);
+				utils.getServerExternalValue(conf);
+			}).toThrow(/^Failed to evaluating externalScript \(noFilePlugin\).*/);
+		});
+
+		it("plugin file does not function", () => {
+			const conf: SandboxConfiguration = {
+				server: {
+					external: {
+						failPlugin: "src/__tests__/fixtures/failPlugin.js"
+					}
+				}
+			};
+			expect(() => {
+				utils.getServerExternalValue(conf);
+			}).toThrow(/^Failed to evaluating externalScript \(failPlugin\).*/);
+		});
+
+		it("plugin script does not function", () => {
+			const conf: SandboxConfiguration = {
+				server: {
+					external: {
+						noFuncPlugin: "src/__tests__/fixtures/noFuncPlugin.js"
+					}
+				}
+			};
+			expect(() => {
+				utils.getServerExternalValue(conf);
+			}).toThrow(/^noFuncPlugin.noFunc, given as externalScript, does not export a function$/);
 		});
 	});
 
 	describe("normalize()", () => {
 		it("autoSendEvents and autoSendEventName exist", () => {
-			utils.normalize(conf1);
-			expect(conf1.autoSendEventName).toBe("autoSendEventName1");
-			expect(conf1.autoSendEvents).toBe("autoSendEvents1");
+			const conf = utils.normalize(conf1);
+			expect(conf.autoSendEventName).toBe("autoSendEventName1");
+			expect(conf.autoSendEvents).toBe("autoSendEvents1");
 		});
 
 		it("When only autoSendEventName, nothing changes", () => {
-			utils.normalize(conf2);
-			expect(conf2.autoSendEventName).toBe("autoSendEventName2");
-			expect(conf2.autoSendEvents).toBeUndefined();
+			const conf = utils.normalize(conf2);
+			expect(conf.autoSendEventName).toBe("autoSendEventName2");
+			expect(conf.autoSendEvents).toBeUndefined();
 		});
 
 		it("For autoSendEvents only, autoSendEventName is the value of autoSendEvents", () => {
-			utils.normalize(conf3);
-			expect(conf3.autoSendEventName).toBe("autoSendEvents3");
-			expect(conf3.autoSendEvents).toBe("autoSendEvents3");
+			const conf = utils.normalize(conf3);
+			expect(conf.autoSendEventName).toBe("autoSendEvents3");
+			expect(conf.autoSendEvents).toBe("autoSendEvents3");
 		});
 	});
 });
