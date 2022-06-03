@@ -33,7 +33,7 @@ export function getServerExternalValue(sandboxConfig: SandboxConfiguration): () 
  * 正規化
  */
 export function normalize(sandboxConfig: SandboxConfiguration): SandboxConfiguration {
-	const config = Object.assign({}, sandboxConfig);
+	const config = JSON.parse(JSON.stringify(sandboxConfig));
 	const { events, autoSendEvents, autoSendEventName } = sandboxConfig;
 
 	if (!autoSendEventName && events && autoSendEvents && events[autoSendEvents] instanceof Array) {
