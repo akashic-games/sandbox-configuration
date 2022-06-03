@@ -42,7 +42,7 @@ const utils = require("@akashic/sandbox-configuration/lib/utils");
 
 ...
 
-const externalValue = utils.getServerExternalValue(sandboxConfig);
+const externalFacotory = utils.getServerExternalFactory(sandboxConfig);
 ```
 
 ### sandbox.config.js を正規化処理をする場合
