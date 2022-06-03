@@ -51,7 +51,7 @@ export interface SandboxConfiguration {
 		};
 	};
 	/**
-	 *  Server 側で利用できる外部プラグインを登録
+	 * Server 側で利用できる外部プラグインを登録
 	 */
 	server?: {
 		external?: {
