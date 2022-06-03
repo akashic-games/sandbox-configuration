@@ -5,6 +5,7 @@ module.exports = () => {
 		},
 		hoge: () => {
 			return "hoge"
-		}
+		},
+		foo: "foo"
 	};
 };

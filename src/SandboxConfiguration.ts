@@ -43,7 +43,7 @@ export interface SandboxConfiguration {
 	 */
 	formatVersion?: "1";
 	/**
-	 * client 側で利用できる外部プラグインを登録。
+	 * クライアント側で利用できる外部プラグインを登録。
 	 */
 	client?: {
 		external?: {
@@ -51,7 +51,7 @@ export interface SandboxConfiguration {
 		};
 	};
 	/**
-	 * Server 側で利用できる外部プラグインを登録
+	 * サーバ側で利用できる外部プラグインを登録
 	 */
 	server?: {
 		external?: {

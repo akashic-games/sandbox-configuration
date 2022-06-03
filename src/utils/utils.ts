@@ -2,38 +2,42 @@ import * as path from "path";
 import type { SandboxConfiguration } from "../SandboxConfiguration";
 
 /**
- * g.Game#external に渡されるオブジェクトを返す
+ * g.Game#external に渡されるオブジェクトを生成する関数を返す
  * 戻り値の関数は任意の処理を行う可能性があるため、明示的に指定された場合にのみ呼び出すようにすべきである
  */
-export function getServerExternalValue(sandboxConfig: SandboxConfiguration): () => { [name: string]: any } {
-	const externalValue: { [name: string]: any } = {};
+export function getServerExternalFactory(sandboxConfig: SandboxConfiguration): () => { [name: string]: any } {
+	const externalFactory: { [name: string]: any } = {};
 	const server = sandboxConfig?.server;
 
-	if (server?.external) {
-		for (const pluginName of Object.keys(server.external)) {
+	if (!server?.external) return () => externalFactory;
+
+	return () => {
+		for (const pluginName of Object.keys(server.external!)) {
 			try {
 				// eslint-disable-next-line @typescript-eslint/no-var-requires
-				const pluginValue = require(path.resolve(server.external[pluginName]));
-				externalValue[pluginName] = pluginValue();
+				const pluginValue = require(path.resolve(server.external![pluginName])); // require() は結果をキャッシュするので複数回実行しても同じ値を使っている
+				externalFactory[pluginName] = pluginValue();
 			} catch (e) {
 				throw new Error(`Failed to evaluating externalScript (${pluginName})`);
 			}
-
-			for (const key of Object.keys(externalValue[pluginName])) {
-				if (typeof externalValue[pluginName][key] !== "function") {
-					throw new Error(`${pluginName}.${key}, given as externalScript, does not export a function`);
-				}
-			}
 		}
-	}
-	return () => externalValue;
+		return externalFactory;
+	};
 }
 
 /**
  * 正規化
  */
 export function normalize(sandboxConfig: SandboxConfiguration): SandboxConfiguration {
-	const config = JSON.parse(JSON.stringify(sandboxConfig));
+	const config = {
+		...sandboxConfig,
+		server: {
+			external: { ...(sandboxConfig.server?.external ?? {}) }
+		},
+		client: {
+			external: { ...(sandboxConfig.client?.external ?? {}) }
+		}
+	};
 	const { events, autoSendEvents, autoSendEventName } = sandboxConfig;
 
 	if (!autoSendEventName && events && autoSendEvents && events[autoSendEvents] instanceof Array) {

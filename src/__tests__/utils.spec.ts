@@ -42,9 +42,10 @@ describe("utils", () => {
 					}
 				}
 			};
-			const obj = utils.getServerExternalValue(conf);
+			const obj = utils.getServerExternalFactory(conf);
 			expect(obj().testPlugin.test()).toBeTruthy();
 			expect(obj().testPlugin.hoge()).toBe("hoge");
+			expect(obj().testPlugin.foo).toBe("foo");
 		});
 
 		it("server.external does not exist", () => {
@@ -53,7 +54,7 @@ describe("utils", () => {
 					external: {}
 				}
 			};
-			const obj = utils.getServerExternalValue(conf);
+			const obj = utils.getServerExternalFactory(conf);
 			console.log(obj());
 			expect(Object.keys(obj).length).toBe(0);
 		});
@@ -67,7 +68,8 @@ describe("utils", () => {
 				}
 			};
 			expect(() => {
-				utils.getServerExternalValue(conf);
+				const obj = utils.getServerExternalFactory(conf);
+				obj();
 			}).toThrow(/^Failed to evaluating externalScript \(noFilePlugin\).*/);
 		});
 
@@ -80,21 +82,9 @@ describe("utils", () => {
 				}
 			};
 			expect(() => {
-				utils.getServerExternalValue(conf);
+				const obj = utils.getServerExternalFactory(conf);
+				obj();
 			}).toThrow(/^Failed to evaluating externalScript \(failPlugin\).*/);
-		});
-
-		it("plugin script does not function", () => {
-			const conf: SandboxConfiguration = {
-				server: {
-					external: {
-						noFuncPlugin: "src/__tests__/fixtures/noFuncPlugin.js"
-					}
-				}
-			};
-			expect(() => {
-				utils.getServerExternalValue(conf);
-			}).toThrow(/^noFuncPlugin.noFunc, given as externalScript, does not export a function$/);
 		});
 	});
 
@@ -115,6 +105,7 @@ describe("utils", () => {
 			const conf = utils.normalize(conf3);
 			expect(conf.autoSendEventName).toBe("autoSendEvents3");
 			expect(conf.autoSendEvents).toBe("autoSendEvents3");
+			expect(conf3.autoSendEventName).toBeUndefined();
 		});
 	});
 });
