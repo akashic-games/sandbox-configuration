@@ -43,9 +43,17 @@ export interface SandboxConfiguration {
 	 */
 	formatVersion?: "1";
 	/**
-	 * serve の client で利用できる外部プラグインを登録。
+	 * client 側で利用できる外部プラグインを登録。
 	 */
 	client?: {
+		external?: {
+			[key: string]: string; // 値は各プラグインの scriptPath
+		};
+	};
+	/**
+	 *  Server 側で利用できる外部プラグインを登録
+	 */
+	server?: {
 		external?: {
 			[key: string]: string; // 値は各プラグインの scriptPath
 		};
