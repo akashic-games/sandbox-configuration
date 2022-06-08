@@ -6,6 +6,10 @@ module.exports = () => {
 		hoge: () => {
 			return "hoge"
 		},
-		foo: "foo"
+		foo: "foo",
+		count: 0,
+		inc: function() {
+			return ++this.count;
+		}
 	};
 };

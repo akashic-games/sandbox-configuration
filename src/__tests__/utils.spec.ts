@@ -46,6 +46,12 @@ describe("utils", () => {
 			expect(obj().testPlugin.test()).toBeTruthy();
 			expect(obj().testPlugin.hoge()).toBe("hoge");
 			expect(obj().testPlugin.foo).toBe("foo");
+			expect(obj().testPlugin.inc()).toBe(1);
+
+			const plugin = obj();
+			expect(plugin.testPlugin.count).toBe(0);
+			expect(plugin.testPlugin.inc()).toBe(1);
+			expect(plugin.testPlugin.inc()).toBe(2); // inc() 2 回目の呼び出しで testPlugin.count が使い回されていること。
 		});
 
 		it("server.external does not exist", () => {
@@ -55,7 +61,6 @@ describe("utils", () => {
 				}
 			};
 			const obj = utils.getServerExternalFactory(conf);
-			console.log(obj());
 			expect(Object.keys(obj).length).toBe(0);
 		});
 

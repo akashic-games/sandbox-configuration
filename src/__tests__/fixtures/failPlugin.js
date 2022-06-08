@@ -1,2 +1,4 @@
-const fail =  false;
+function fail() {
+	throw new Error("error");
+}
 module.exports = fail;

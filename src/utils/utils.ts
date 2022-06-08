@@ -6,12 +6,12 @@ import type { SandboxConfiguration } from "../SandboxConfiguration";
  * 戻り値の関数は任意の処理を行う可能性があるため、明示的に指定された場合にのみ呼び出すようにすべきである
  */
 export function getServerExternalFactory(sandboxConfig: SandboxConfiguration): () => { [name: string]: any } {
-	const externalFactory: { [name: string]: any } = {};
 	const server = sandboxConfig?.server;
 
-	if (!server?.external) return () => externalFactory;
-
 	return () => {
+		const externalFactory: { [name: string]: any } = {};
+		if (!server?.external) return () => externalFactory;
+
 		for (const pluginName of Object.keys(server.external!)) {
 			try {
 				// eslint-disable-next-line @typescript-eslint/no-var-requires
