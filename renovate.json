@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "github>akashic-games/renovate-config"
+  ],
+  "packageRules": [
+    {
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "excludePackagePatterns": ["^@akashic/"],
+      "groupName": "all dependencies",
+      "groupSlug": "all"
+    }
+  ]
+}
