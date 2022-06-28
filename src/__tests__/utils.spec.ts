@@ -7,7 +7,7 @@ describe("utils", () => {
 		autoSendEventName: "autoSendEventName1",
 		backgroundImage: "",
 		backgroundColor: "red",
-		showMenu: false,
+		showMenu: true,
 		events: {
 			autoSendEvents1: [],
 			autoSendEventName1: []
@@ -97,20 +97,46 @@ describe("utils", () => {
 		it("autoSendEvents and autoSendEventName exist", () => {
 			const conf = utils.normalize(conf1);
 			expect(conf.autoSendEventName).toBe("autoSendEventName1");
-			expect(conf.autoSendEvents).toBe("autoSendEvents1");
+			expect(conf3.autoSendEventName).toBeUndefined();
+			expect(conf.backgroundImage).toBe("");
+			expect(conf.backgroundColor).toBe("red");
+			expect(conf.showMenu).toBeTruthy();
+			expect(conf.events).toEqual({ autoSendEvents1: [], autoSendEventName1: [] });
+			expect(conf.arguments).toEqual({});
+			expect(conf.externalAssets).toEqual([]);
+			expect(conf.formatVersion).toBe("1");
+			expect(conf.server.external).toEqual({});
+			expect(conf.client.external).toEqual({ testPlugin: "./testPlugin.js" });
 		});
 
 		it("When only autoSendEventName, nothing changes", () => {
 			const conf = utils.normalize(conf2);
 			expect(conf.autoSendEventName).toBe("autoSendEventName2");
-			expect(conf.autoSendEvents).toBeUndefined();
+			expect(conf3.autoSendEventName).toBeUndefined();
+			expect(conf.backgroundImage).toBe("");
+			expect(conf.backgroundColor).toBe("");
+			expect(conf.showMenu).toBeFalsy();
+			expect(conf.events).toEqual({ autoSendEventNam2: [] });
+			expect(conf.arguments).toEqual({});
+			expect(conf.externalAssets).toEqual([]);
+			expect(conf.formatVersion).toBe("1");
+			expect(conf.server.external).toEqual({});
+			expect(conf.client.external).toEqual({});
 		});
 
 		it("For autoSendEvents only, autoSendEventName is the value of autoSendEvents", () => {
 			const conf = utils.normalize(conf3);
 			expect(conf.autoSendEventName).toBe("autoSendEvents3");
-			expect(conf.autoSendEvents).toBe("autoSendEvents3");
 			expect(conf3.autoSendEventName).toBeUndefined();
+			expect(conf.backgroundImage).toBe("");
+			expect(conf.backgroundColor).toBe("");
+			expect(conf.showMenu).toBeFalsy();
+			expect(conf.events).toEqual({ autoSendEvents3: [] });
+			expect(conf.arguments).toEqual({});
+			expect(conf.externalAssets).toEqual([]);
+			expect(conf.formatVersion).toBe("1");
+			expect(conf.server.external).toEqual({});
+			expect(conf.client.external).toEqual({});
 		});
 	});
 });

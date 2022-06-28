@@ -59,3 +59,5 @@ export interface SandboxConfiguration {
 		};
 	};
 }
+
+export interface NormalizedSandboxConfiguration extends Required<Omit<SandboxConfiguration, "autoSendEvents">> {}

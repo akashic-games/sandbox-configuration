@@ -1,5 +1,5 @@
 import * as path from "path";
-import type { SandboxConfiguration } from "../SandboxConfiguration";
+import type { NormalizedSandboxConfiguration, SandboxConfiguration } from "../SandboxConfiguration";
 
 /**
  * g.Game#external に渡されるオブジェクトを生成する関数を返す
@@ -28,9 +28,25 @@ export function getServerExternalFactory(sandboxConfig: SandboxConfiguration): (
 /**
  * 正規化
  */
-export function normalize(sandboxConfig: SandboxConfiguration): SandboxConfiguration {
+export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandboxConfiguration {
+	const { events, autoSendEvents, autoSendEventName } = sandboxConfig;
+
+	let autoSendEventNameValue = autoSendEventName ?? "";
+	if (!autoSendEventName && events && autoSendEvents && events[autoSendEvents] instanceof Array) {
+		// TODO: `autoSendEvents` は非推奨。`autoSendEvents` の削除時にこのパスも削除する。
+		// 非推奨の `autoSendEvents` のみの場合、`autoSendEventName` に値を差し替える。
+		console.warn("[deprecated] `autoSendEvents` in sandbox.config.js is deprecated. Please use `autoSendEventName`.");
+		autoSendEventNameValue = autoSendEvents;
+	}
 	const config = {
-		...sandboxConfig,
+		autoSendEventName: autoSendEventNameValue,
+		backgroundImage: sandboxConfig.backgroundImage ?? "",
+		backgroundColor: sandboxConfig.backgroundColor ?? "",
+		showMenu: sandboxConfig.showMenu ?? false,
+		events: sandboxConfig.events ?? {},
+		arguments: sandboxConfig.arguments ?? {},
+		externalAssets: sandboxConfig.externalAssets || [],
+		formatVersion: sandboxConfig.formatVersion || "1",
 		server: {
 			external: { ...(sandboxConfig.server?.external ?? {}) }
 		},
@@ -38,14 +54,6 @@ export function normalize(sandboxConfig: SandboxConfiguration): SandboxConfigura
 			external: { ...(sandboxConfig.client?.external ?? {}) }
 		}
 	};
-	const { events, autoSendEvents, autoSendEventName } = sandboxConfig;
-
-	if (!autoSendEventName && events && autoSendEvents && events[autoSendEvents] instanceof Array) {
-		// TODO: `autoSendEvents` は非推奨。`autoSendEvents` の削除時にこのパスも削除する。
-		// 非推奨の `autoSendEvents` のみの場合、`autoSendEventName` に値を差し替える。
-		console.warn("[deprecated] `autoSendEvents` in sandbox.config.js is deprecated. Please use `autoSendEventName`.");
-		config.autoSendEventName = autoSendEvents;
-	}
 
 	return config;
 }
