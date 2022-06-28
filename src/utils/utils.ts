@@ -45,8 +45,8 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 			external: { ...(sandboxConfig.client?.external ?? {}) }
 		}
 	};
-
 	const { events, autoSendEvents, autoSendEventName } = sandboxConfig;
+
 	if (!autoSendEventName && events && autoSendEvents && events[autoSendEvents] instanceof Array) {
 		// TODO: `autoSendEvents` は非推奨。`autoSendEvents` の削除時にこのパスも削除する。
 		// 非推奨の `autoSendEvents` のみの場合、`autoSendEventName` に値を差し替える。
