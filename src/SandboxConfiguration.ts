@@ -60,4 +60,26 @@ export interface SandboxConfiguration {
 	};
 }
 
-export interface NormalizedSandboxConfiguration extends Required<Omit<SandboxConfiguration, "autoSendEvents">> {}
+/**
+ * 正規化した SandboxConfiguration のインターフェース
+ */
+export interface NormalizedSandboxConfiguration {
+	autoSendEventName: string | null;
+	backgroundImage: string | null;
+	backgroundColor: string | null;
+	showMenu: boolean;
+	events: { [name: string]: any };
+	arguments: { [name: string]: any };
+	externalAssets: (string | RegExp)[] | null;
+	formatVersion: "1";
+	client: {
+		external: {
+			[key: string]: string;
+		};
+	};
+	server: {
+		external: {
+			[key: string]: string;
+		};
+	};
+}

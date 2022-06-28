@@ -29,19 +29,10 @@ export function getServerExternalFactory(sandboxConfig: SandboxConfiguration): (
  * 正規化
  */
 export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandboxConfiguration {
-	const { events, autoSendEvents, autoSendEventName } = sandboxConfig;
-
-	let autoSendEventNameValue = autoSendEventName ?? "";
-	if (!autoSendEventName && events && autoSendEvents && events[autoSendEvents] instanceof Array) {
-		// TODO: `autoSendEvents` は非推奨。`autoSendEvents` の削除時にこのパスも削除する。
-		// 非推奨の `autoSendEvents` のみの場合、`autoSendEventName` に値を差し替える。
-		console.warn("[deprecated] `autoSendEvents` in sandbox.config.js is deprecated. Please use `autoSendEventName`.");
-		autoSendEventNameValue = autoSendEvents;
-	}
 	const config = {
-		autoSendEventName: autoSendEventNameValue,
-		backgroundImage: sandboxConfig.backgroundImage ?? "",
-		backgroundColor: sandboxConfig.backgroundColor ?? "",
+		autoSendEventName: sandboxConfig.autoSendEventName ?? null,
+		backgroundImage: sandboxConfig.backgroundImage ?? null,
+		backgroundColor: sandboxConfig.backgroundColor ?? null,
 		showMenu: sandboxConfig.showMenu ?? false,
 		events: sandboxConfig.events ?? {},
 		arguments: sandboxConfig.arguments ?? {},
@@ -54,6 +45,14 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 			external: { ...(sandboxConfig.client?.external ?? {}) }
 		}
 	};
+
+	const { events, autoSendEvents, autoSendEventName } = sandboxConfig;
+	if (!autoSendEventName && events && autoSendEvents && events[autoSendEvents] instanceof Array) {
+		// TODO: `autoSendEvents` は非推奨。`autoSendEvents` の削除時にこのパスも削除する。
+		// 非推奨の `autoSendEvents` のみの場合、`autoSendEventName` に値を差し替える。
+		console.warn("[deprecated] `autoSendEvents` in sandbox.config.js is deprecated. Please use `autoSendEventName`.");
+		config.autoSendEventName = autoSendEvents;
+	}
 
 	return config;
 }
