@@ -30,6 +30,7 @@ export function getServerExternalFactory(sandboxConfig: SandboxConfiguration): (
  */
 export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandboxConfiguration {
 	const config = {
+		...sandboxConfig, // 型に存在しない値が残るようにする
 		autoSendEventName: sandboxConfig.autoSendEventName ?? null,
 		backgroundImage: sandboxConfig.backgroundImage ?? null,
 		backgroundColor: sandboxConfig.backgroundColor ?? null,
