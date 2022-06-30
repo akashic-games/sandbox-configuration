@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 1.1.0
+## 2.0.0
 * `NormalizedSandboxConfiguration` の追加
 
 ## 1.0.0
