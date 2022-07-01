@@ -1,5 +1,5 @@
 import * as path from "path";
-import type { SandboxConfiguration } from "../SandboxConfiguration";
+import type { NormalizedSandboxConfiguration, SandboxConfiguration } from "../SandboxConfiguration";
 
 /**
  * g.Game#external に渡されるオブジェクトを生成する関数を返す
@@ -28,9 +28,17 @@ export function getServerExternalFactory(sandboxConfig: SandboxConfiguration): (
 /**
  * 正規化
  */
-export function normalize(sandboxConfig: SandboxConfiguration): SandboxConfiguration {
+export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandboxConfiguration {
 	const config = {
-		...sandboxConfig,
+		...sandboxConfig, // 型に存在しない値が残るようにする
+		autoSendEventName: sandboxConfig.autoSendEventName ?? null,
+		backgroundImage: sandboxConfig.backgroundImage ?? null,
+		backgroundColor: sandboxConfig.backgroundColor ?? null,
+		showMenu: sandboxConfig.showMenu ?? false,
+		events: sandboxConfig.events ?? {},
+		arguments: sandboxConfig.arguments ?? {},
+		externalAssets: sandboxConfig.externalAssets || [],
+		formatVersion: sandboxConfig.formatVersion || "1",
 		server: {
 			external: { ...(sandboxConfig.server?.external ?? {}) }
 		},

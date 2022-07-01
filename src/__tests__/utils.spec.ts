@@ -5,9 +5,9 @@ describe("utils", () => {
 	const conf1: SandboxConfiguration = {
 		autoSendEvents: "autoSendEvents1",
 		autoSendEventName: "autoSendEventName1",
-		backgroundImage: "",
+		backgroundImage: "./path",
 		backgroundColor: "red",
-		showMenu: false,
+		showMenu: true,
 		events: {
 			autoSendEvents1: [],
 			autoSendEventName1: []
@@ -24,6 +24,11 @@ describe("utils", () => {
 		autoSendEventName: "autoSendEventName2",
 		events: {
 			autoSendEventName2: []
+		},
+		server: {
+			external: {
+				fooPlugin: "./fooPlugin.js"
+			}
 		}
 	};
 	const conf3: SandboxConfiguration = {
@@ -94,23 +99,46 @@ describe("utils", () => {
 	});
 
 	describe("normalize()", () => {
+		it("default value", () => {
+			const conf = utils.normalize({});
+			expect(conf.autoSendEventName).toBeNull();
+			expect(conf.hasOwnProperty("autoSendEvents")).toBeFalsy();
+			expect(conf.backgroundImage).toBeNull();
+			expect(conf.backgroundColor).toBeNull();
+			expect(conf.showMenu).toBeFalsy();
+			expect(conf.events).toEqual({});
+			expect(conf.arguments).toEqual({});
+			expect(conf.externalAssets).toEqual([]);
+			expect(conf.formatVersion).toBe("1");
+			expect(conf.server.external).toEqual({});
+			expect(conf.client.external).toEqual({});
+		});
+
 		it("autoSendEvents and autoSendEventName exist", () => {
 			const conf = utils.normalize(conf1);
 			expect(conf.autoSendEventName).toBe("autoSendEventName1");
-			expect(conf.autoSendEvents).toBe("autoSendEvents1");
+			expect(conf.backgroundImage).toBe("./path");
+			expect(conf.backgroundColor).toBe("red");
+			expect(conf.showMenu).toBeTruthy();
+			expect(conf.events).toEqual({ autoSendEvents1: [], autoSendEventName1: [] });
+			expect(conf.arguments).toEqual({});
+			expect(conf.externalAssets).toEqual([]);
+			expect(conf.formatVersion).toBe("1");
+			expect(conf.server.external).toEqual({});
+			expect(conf.client.external).toEqual({ testPlugin: "./testPlugin.js" });
 		});
 
 		it("When only autoSendEventName, nothing changes", () => {
 			const conf = utils.normalize(conf2);
 			expect(conf.autoSendEventName).toBe("autoSendEventName2");
-			expect(conf.autoSendEvents).toBeUndefined();
+			expect(conf.events).toEqual({ autoSendEventName2: [] });
+			expect(conf.server.external).toEqual({ fooPlugin: "./fooPlugin.js" });
 		});
 
 		it("For autoSendEvents only, autoSendEventName is the value of autoSendEvents", () => {
 			const conf = utils.normalize(conf3);
 			expect(conf.autoSendEventName).toBe("autoSendEvents3");
-			expect(conf.autoSendEvents).toBe("autoSendEvents3");
-			expect(conf3.autoSendEventName).toBeUndefined();
+			expect(conf.events).toEqual({ autoSendEvents3: [] });
 		});
 	});
 });

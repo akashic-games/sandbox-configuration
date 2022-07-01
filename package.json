@@ -1,6 +1,6 @@
 {
   "name": "@akashic/sandbox-configuration",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Type definitions and utilities for sandbox.config.js",
   "main": "lib/index.js",
   "scripts": {
