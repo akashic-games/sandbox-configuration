@@ -62,15 +62,17 @@ export interface SandboxConfiguration {
 	 * 各種警告表示設定
 	 * 真の場合は警告を表示する
 	 */
-	warn: {
+	warn?: {
 		/** ES6以降でサポートされるオブジェクトが使われている場合警告を出すかどうか  */
 		es6?: boolean;
 		/** Date の警告を出すかどうか */
-		useDate: boolean;
+		useDate?: boolean;
 		/** Math.random() の警告を出すかどうか */
-		useMathRandom: boolean;
+		useMathRandom?: boolean;
 		/** 範囲外描画されている場合に警告を出すかどうか */
-		drawOutOfCanvas: boolean;
+		drawOutOfCanvas?: boolean;
+		/** 描画先が空の場合に警告を出すかどうか */
+		drawDestinationEmpty?: boolean;
 	};
 }
 

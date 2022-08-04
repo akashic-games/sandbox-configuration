@@ -23,7 +23,8 @@ describe("utils", () => {
 			es6: false,
 			useDate: false,
 			useMathRandom: false,
-			drawOutOfCanvas: false
+			drawOutOfCanvas: false,
+			drawDestinationEmpty: false
 		}
 	};
 	const conf2: SandboxConfiguration = {
@@ -35,22 +36,12 @@ describe("utils", () => {
 			external: {
 				fooPlugin: "./fooPlugin.js"
 			}
-		},
-		warn: {
-			useDate: true,
-			useMathRandom: true,
-			drawOutOfCanvas: true
 		}
 	};
 	const conf3: SandboxConfiguration = {
 		autoSendEvents: "autoSendEvents3",
 		events: {
 			autoSendEvents3: []
-		},
-		warn: {
-			useDate: true,
-			useMathRandom: true,
-			drawOutOfCanvas: true
 		}
 	};
 
@@ -61,11 +52,6 @@ describe("utils", () => {
 					external: {
 						testPlugin: "src/__tests__/fixtures/testPlugin.js"
 					}
-				},
-				warn: {
-					useDate: false,
-					useMathRandom: false,
-					drawOutOfCanvas: false
 				}
 			};
 			const obj = utils.getServerExternalFactory(conf);
@@ -84,11 +70,6 @@ describe("utils", () => {
 			const conf: SandboxConfiguration = {
 				server: {
 					external: {}
-				},
-				warn: {
-					useDate: false,
-					useMathRandom: false,
-					drawOutOfCanvas: false
 				}
 			};
 			const obj = utils.getServerExternalFactory(conf);
@@ -101,11 +82,6 @@ describe("utils", () => {
 					external: {
 						noFilePlugin: "src/__tests__/fixtures/noFilePlugin.js"
 					}
-				},
-				warn: {
-					useDate: false,
-					useMathRandom: false,
-					drawOutOfCanvas: false
 				}
 			};
 			expect(() => {
@@ -120,11 +96,6 @@ describe("utils", () => {
 					external: {
 						failPlugin: "src/__tests__/fixtures/failPlugin.js"
 					}
-				},
-				warn: {
-					useDate: false,
-					useMathRandom: false,
-					drawOutOfCanvas: false
 				}
 			};
 			expect(() => {
@@ -136,7 +107,7 @@ describe("utils", () => {
 
 	describe("normalize()", () => {
 		it("default value", () => {
-			const conf = utils.normalize({} as any);
+			const conf = utils.normalize({});
 			expect(conf.autoSendEventName).toBeNull();
 			expect(conf.hasOwnProperty("autoSendEvents")).toBeFalsy();
 			expect(conf.backgroundImage).toBeNull();
@@ -152,6 +123,7 @@ describe("utils", () => {
 			expect(conf.warn.useDate).toBeTruthy();
 			expect(conf.warn.useMathRandom).toBeTruthy();
 			expect(conf.warn.drawOutOfCanvas).toBeTruthy();
+			expect(conf.warn.drawDestinationEmpty).toBeTruthy();
 		});
 
 		it("autoSendEvents and autoSendEventName exist", () => {
@@ -170,6 +142,7 @@ describe("utils", () => {
 			expect(conf.warn.useDate).toBeFalsy();
 			expect(conf.warn.useMathRandom).toBeFalsy();
 			expect(conf.warn.drawOutOfCanvas).toBeFalsy();
+			expect(conf.warn.drawDestinationEmpty).toBeFalsy();
 		});
 
 		it("When only autoSendEventName, nothing changes", () => {

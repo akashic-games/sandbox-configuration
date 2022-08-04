@@ -60,6 +60,7 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 	config.warn.useDate = warn?.useDate ?? true;
 	config.warn.useMathRandom = warn?.useMathRandom ?? true;
 	config.warn.drawOutOfCanvas = warn?.drawOutOfCanvas ?? true;
+	config.warn.drawDestinationEmpty = warn?.drawDestinationEmpty ?? true;
 
 	return config;
 }
