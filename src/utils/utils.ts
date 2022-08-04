@@ -44,9 +44,10 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 		},
 		client: {
 			external: { ...(sandboxConfig.client?.external ?? {}) }
-		}
+		},
+		warn: sandboxConfig.warn ?? {}
 	};
-	const { events, autoSendEvents, autoSendEventName } = sandboxConfig;
+	const { events, autoSendEvents, autoSendEventName, warn } = sandboxConfig;
 
 	if (!autoSendEventName && events && autoSendEvents && events[autoSendEvents] instanceof Array) {
 		// TODO: `autoSendEvents` は非推奨。`autoSendEvents` の削除時にこのパスも削除する。
@@ -54,6 +55,11 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 		console.warn("[deprecated] `autoSendEvents` in sandbox.config.js is deprecated. Please use `autoSendEventName`.");
 		config.autoSendEventName = autoSendEvents;
 	}
+
+	config.warn.es6 = warn?.es6 ?? true;
+	config.warn.useDate = warn?.useDate ?? true;
+	config.warn.useMathRandom = warn?.useMathRandom ?? true;
+	config.warn.drawOutOfCanvas = warn?.drawOutOfCanvas ?? true;
 
 	return config;
 }
