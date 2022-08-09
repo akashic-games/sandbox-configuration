@@ -29,9 +29,26 @@ export function getServerExternalFactory(sandboxConfig: SandboxConfiguration): (
  * 正規化
  */
 export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandboxConfiguration {
-	const config = {
+	const { events, autoSendEvents, autoSendEventName, warn } = sandboxConfig;
+	let autoSendEventsValue = null;
+	if (!autoSendEventName && events && autoSendEvents && events[autoSendEvents] instanceof Array) {
+		// TODO: `autoSendEvents` は非推奨。`autoSendEvents` の削除時にこのパスも削除する。
+		// 非推奨の `autoSendEvents` のみの場合、`autoSendEventName` に値を差し替える。
+		console.warn("[deprecated] `autoSendEvents` in sandbox.config.js is deprecated. Please use `autoSendEventName`.");
+		autoSendEventsValue = autoSendEvents;
+	}
+
+	const warnValue = {
+		es6: warn?.es6 ?? true,
+		useDate: warn?.useDate ?? true,
+		useMathRandom: warn?.useMathRandom ?? true,
+		drawOutOfCanvas: warn?.drawOutOfCanvas ?? true,
+		drawDestinationEmpty: warn?.drawDestinationEmpty ?? true
+	};
+
+	return {
 		...sandboxConfig, // 型に存在しない値が残るようにする
-		autoSendEventName: sandboxConfig.autoSendEventName ?? null,
+		autoSendEventName: autoSendEventsValue ?? sandboxConfig.autoSendEventName ?? null,
 		backgroundImage: sandboxConfig.backgroundImage ?? null,
 		backgroundColor: sandboxConfig.backgroundColor ?? null,
 		showMenu: sandboxConfig.showMenu ?? false,
@@ -45,22 +62,6 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 		client: {
 			external: { ...(sandboxConfig.client?.external ?? {}) }
 		},
-		warn: sandboxConfig.warn ?? {}
+		warn: warnValue
 	};
-	const { events, autoSendEvents, autoSendEventName, warn } = sandboxConfig;
-
-	if (!autoSendEventName && events && autoSendEvents && events[autoSendEvents] instanceof Array) {
-		// TODO: `autoSendEvents` は非推奨。`autoSendEvents` の削除時にこのパスも削除する。
-		// 非推奨の `autoSendEvents` のみの場合、`autoSendEventName` に値を差し替える。
-		console.warn("[deprecated] `autoSendEvents` in sandbox.config.js is deprecated. Please use `autoSendEventName`.");
-		config.autoSendEventName = autoSendEvents;
-	}
-
-	config.warn.es6 = warn?.es6 ?? true;
-	config.warn.useDate = warn?.useDate ?? true;
-	config.warn.useMathRandom = warn?.useMathRandom ?? true;
-	config.warn.drawOutOfCanvas = warn?.drawOutOfCanvas ?? true;
-	config.warn.drawDestinationEmpty = warn?.drawDestinationEmpty ?? true;
-
-	return config as NormalizedSandboxConfiguration;
 }
