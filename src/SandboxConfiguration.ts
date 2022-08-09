@@ -79,4 +79,12 @@ export interface SandboxConfiguration {
 /**
  * 正規化した SandboxConfiguration のインターフェース
  */
-export interface NormalizedSandboxConfiguration extends Required<Omit<SandboxConfiguration, "autoSendEvents">> {}
+export interface NormalizedSandboxConfiguration extends Required<Omit<SandboxConfiguration, "autoSendEvents">> {
+	warn: {
+		es6: boolean;
+		useDate: boolean;
+		useMathRandom: boolean;
+		drawOutOfCanvas: boolean;
+		drawDestinationEmpty: boolean;
+	};
+}

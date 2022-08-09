@@ -62,5 +62,5 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 	config.warn.drawOutOfCanvas = warn?.drawOutOfCanvas ?? true;
 	config.warn.drawDestinationEmpty = warn?.drawDestinationEmpty ?? true;
 
-	return config;
+	return config as NormalizedSandboxConfiguration;
 }
