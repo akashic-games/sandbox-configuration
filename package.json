@@ -60,8 +60,7 @@
   },
   "remarkConfig": {
     "plugins": [
-      "@akashic/remark-preset-lint",
-	  ["remark-lint-maximum-line-length", 200]
+      "@akashic/remark-preset-lint"
     ]
   },
   "dependencies": {

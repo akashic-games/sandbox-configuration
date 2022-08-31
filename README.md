@@ -24,7 +24,7 @@ sandbox.config.js の型定義を提供します。
   * drawOutOfCanvas: 範囲外描画されている場合に警告を出すかどうか
   * drawDestinationEmpty: 描画先が空の場合に警告を出すかどうか
 
-詳細は [SandboxConfiguration.ts の定義とコメント](https://github.com/akashic-games/sandbox-configuration/blob/main/src/SandboxConfiguration.ts)を参照してください。
+詳細は [SandboxConfiguration.ts の定義とコメント][SandboxConfiguration-link]を参照してください。
 
 ## インストール
 
@@ -90,3 +90,5 @@ npm test
 
 ただし、画像ファイルおよび音声ファイルは
 [CC BY 2.1 JP](https://creativecommons.org/licenses/by/2.1/jp/) の元で公開されています。
+
+[SandboxConfiguration-link]: https://github.com/akashic-games/sandbox-configuration/blob/main/src/SandboxConfiguration.ts
