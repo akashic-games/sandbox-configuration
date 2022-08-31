@@ -24,6 +24,8 @@ sandbox.config.js の型定義を提供します。
   * drawOutOfCanvas: 範囲外描画されている場合に警告を出すかどうか
   * drawDestinationEmpty: 描画先が空の場合に警告を出すかどうか
 
+詳細は [SandboxConfiguration.ts の定義とコメント](https://github.com/akashic-games/sandbox-configuration/blob/main/src/SandboxConfiguration.ts)を参照してください。
+
 ## インストール
 
 Node.jsが必要です。次のコマンドでインストールできます。
@@ -73,7 +75,7 @@ const config = utils.normalize(sandboxConfig);
 
 正規化した場合のデフォルト値は下記のようになります。
 * warn の値が設定していなければ、warn の各プロパティのデフォルト値は真が設定されます。
-* 非推奨の autoSendEvents のみが使われていた場合、autoSendEventName に値を差し替えます。
+* 非推奨の autoSendEvents があり、 autoSendEventName がない場合、autoSendEventName に値を差し替えます。
 
 ## テスト方法
 
