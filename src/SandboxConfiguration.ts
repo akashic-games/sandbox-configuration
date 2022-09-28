@@ -12,11 +12,13 @@ export interface SandboxConfiguration {
 	 */
 	autoSendEventName?: string | null;
 	/**
-	 * 画像のローカルパス、もしくは URL を指定することでコンテンツ実行画面の背景に画像を表示する。
+	 * @deprecated 非推奨。将来削除する予定。
+	 * `displayOption.backgroundImage` の使用が正となる。displayOption.backgroundImage が存在する場合にこの値は無視される。
 	 */
 	backgroundImage?: string | null;
 	/**
-	 * コンテンツ実行画面の背景色。
+	 * @deprecated 非推奨。将来削除する予定。
+	 * `displayOption.backgroundColor` の使用が正となる。displayOption.backgroundColor が存在する場合にこの値は無視される。
 	 */
 	backgroundColor?: string | null;
 	/**
@@ -74,11 +76,41 @@ export interface SandboxConfiguration {
 		/** 描画先が空の場合に警告を出すかどうか */
 		drawDestinationEmpty?: boolean;
 	};
+	/**
+	 * s各種表示設定
+	 */
+	displayOption?: {
+		/**
+		 * ゲーム画面をブラウザサイズに合わせて拡縮するか。
+		 */
+		fitsToScreen?: boolean | null;
+		/**
+		 * 画像のローカルパス、もしくは URL を指定することでコンテンツ実行画面の背景に画像を表示する。
+		 */
+		backgroundImage?: string | null;
+		/**
+		 * コンテンツ実行画面の背景色。
+		 */
+		backgroundColor?: string | null;
+		/**
+		 * グリッドを表示するか。
+		 */
+		showsGrid?: boolean | null;
+		/**
+		 * FPS などを表示するか。
+		 */
+		showsProfiler?: boolean | null;
+		/**
+		 * ニコ生ゲームのデザインガイドライン画像を表示するか。
+		 */
+		showsDesignGuideline?: boolean | null;
+	};
 }
 
+type OmitProperty = "autoSendEvents" | "backgroundImage" | "backgroundColor";
 /**
  * 正規化した SandboxConfiguration のインターフェース
  */
-export interface NormalizedSandboxConfiguration extends Required<Omit<SandboxConfiguration, "autoSendEvents">> {
+export interface NormalizedSandboxConfiguration extends Required<Omit<SandboxConfiguration, OmitProperty>> {
 	warn: Required<Required<SandboxConfiguration>["warn"]>;
 }

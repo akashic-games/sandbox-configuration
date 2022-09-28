@@ -8,8 +8,6 @@ sandbox.config.js の型定義を提供します。
 
 ## 各プロパティの説明
 * autoSendEventName: コンテンツ起動時にイベントを自動送信するイベント名
-* backgroundImage: 画像のローカルパス、もしくは URL を指定することでコンテンツ実行画面の背景に画像を表示
-* backgroundColor: コンテンツ実行画面の背景色
 * showMenu: ページ読み込み時にデベロッパーメニューを表示するか否か。省略時は偽
 * events: コンテンツで扱う playlog イベント
 * arguments: コンテンツの起動時に渡される引数
@@ -23,6 +21,13 @@ sandbox.config.js の型定義を提供します。
   * useMathRandom: Math.random() の警告を出すかどうか
   * drawOutOfCanvas: 範囲外描画されている場合に警告を出すかどうか
   * drawDestinationEmpty: 描画先が空の場合に警告を出すかどうか
+* displayOption: 各種表示設定
+  * fitsToScreen: ゲーム画面をブラウザサイズに合わせて拡縮するか
+  * backgroundImage: 画像のローカルパス、もしくは URL を指定することでコンテンツ実行画面の背景に画像を表示
+  * backgroundColor: コンテンツ実行画面の背景色
+  * showsGrid: グリッドを表示するか
+  * showsProfiler: FPS などを表示するか。
+  * showsDesignGuideline: ニコ生ゲームのデザインガイドライン画像を表示するか
 
 詳細は [SandboxConfiguration.ts の定義とコメント][SandboxConfiguration-link]を参照してください。
 

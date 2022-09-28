@@ -38,6 +38,18 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 		autoSendEventsValue = autoSendEvents;
 	}
 
+	// TODO: `backgroundColor`, `backgroundImage` は非推奨。削除時にこのパスも削除。
+	// `backgroundColor`, `backgroundImage` のみの場合、displayOption に値を差し替える。
+	if (!sandboxConfig.displayOption) sandboxConfig.displayOption = {};
+	if (sandboxConfig.backgroundColor) {
+		console.warn("[deprecated] `backgroundImage` in sandbox.config.js is deprecated. Please use `displayOption.backgroundImage`.");
+		if (!sandboxConfig.displayOption.backgroundImage) sandboxConfig.displayOption.backgroundImage = sandboxConfig.backgroundImage;
+	}
+	if (sandboxConfig.backgroundColor) {
+		console.warn("[deprecated] `backgroundColor` in sandbox.config.js is deprecated. Please use `displayOption.backgroundColor`.");
+		if (!sandboxConfig.displayOption.backgroundColor) sandboxConfig.displayOption.backgroundColor = sandboxConfig.backgroundColor;
+	}
+
 	const warnValue = {
 		es6: warn?.es6 ?? true,
 		useDate: warn?.useDate ?? true,
@@ -49,8 +61,6 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 	return {
 		...sandboxConfig, // 型に存在しない値が残るようにする
 		autoSendEventName: autoSendEventsValue ?? sandboxConfig.autoSendEventName ?? null,
-		backgroundImage: sandboxConfig.backgroundImage ?? null,
-		backgroundColor: sandboxConfig.backgroundColor ?? null,
 		showMenu: sandboxConfig.showMenu ?? false,
 		events: sandboxConfig.events ?? {},
 		arguments: sandboxConfig.arguments ?? {},
@@ -62,6 +72,7 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 		client: {
 			external: { ...(sandboxConfig.client?.external ?? {}) }
 		},
-		warn: warnValue
+		warn: warnValue,
+		displayOption: { ...(sandboxConfig.displayOption ?? {}) }
 	};
 }
