@@ -21,7 +21,7 @@ sandbox.config.js の型定義を提供します。
   * useMathRandom: Math.random() の警告を出すかどうか
   * drawOutOfCanvas: 範囲外描画されている場合に警告を出すかどうか
   * drawDestinationEmpty: 描画先が空の場合に警告を出すかどうか
-* displayOption: 各種表示設定
+* displayOptions: 各種表示設定
   * fitsToScreen: ゲーム画面をブラウザサイズに合わせて拡縮するか
   * backgroundImage: 画像のローカルパス、もしくは URL を指定することでコンテンツ実行画面の背景に画像を表示
   * backgroundColor: コンテンツ実行画面の背景色

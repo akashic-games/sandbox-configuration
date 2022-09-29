@@ -39,15 +39,15 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 	}
 
 	// TODO: `backgroundColor`, `backgroundImage` は非推奨。削除時にこのパスも削除。
-	// `backgroundColor`, `backgroundImage` のみの場合、displayOption に値を差し替える。
-	if (!sandboxConfig.displayOption) sandboxConfig.displayOption = {};
+	// `backgroundColor`, `backgroundImage` のみの場合、displayOptions に値を差し替える。
+	if (!sandboxConfig.displayOptions) sandboxConfig.displayOptions = {};
 	if (sandboxConfig.backgroundColor) {
 		console.warn("[deprecated] `backgroundImage` in sandbox.config.js is deprecated. Please use `displayOption.backgroundImage`.");
-		if (!sandboxConfig.displayOption.backgroundImage) sandboxConfig.displayOption.backgroundImage = sandboxConfig.backgroundImage;
+		if (!sandboxConfig.displayOptions.backgroundImage) sandboxConfig.displayOptions.backgroundImage = sandboxConfig.backgroundImage;
 	}
 	if (sandboxConfig.backgroundColor) {
 		console.warn("[deprecated] `backgroundColor` in sandbox.config.js is deprecated. Please use `displayOption.backgroundColor`.");
-		if (!sandboxConfig.displayOption.backgroundColor) sandboxConfig.displayOption.backgroundColor = sandboxConfig.backgroundColor;
+		if (!sandboxConfig.displayOptions.backgroundColor) sandboxConfig.displayOptions.backgroundColor = sandboxConfig.backgroundColor;
 	}
 
 	const warnValue = {
@@ -73,6 +73,6 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 			external: { ...(sandboxConfig.client?.external ?? {}) }
 		},
 		warn: warnValue,
-		displayOption: { ...(sandboxConfig.displayOption ?? {}) }
+		displayOptions: { ...(sandboxConfig.displayOptions ?? {}) }
 	};
 }

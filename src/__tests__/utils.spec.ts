@@ -26,7 +26,7 @@ describe("utils", () => {
 			drawOutOfCanvas: false,
 			drawDestinationEmpty: false
 		},
-		displayOption: {
+		displayOptions: {
 			fitsToScreen: true,
 			backgroundImage: "./some/path",
 			backgroundColor: "blue",
@@ -132,7 +132,7 @@ describe("utils", () => {
 			expect(conf.warn.useMathRandom).toBeTruthy();
 			expect(conf.warn.drawOutOfCanvas).toBeTruthy();
 			expect(conf.warn.drawDestinationEmpty).toBeTruthy();
-			expect(conf.displayOption).toEqual({});
+			expect(conf.displayOptions).toEqual({});
 		});
 
 		it("autoSendEvents and autoSendEventName exist", () => {
@@ -150,18 +150,18 @@ describe("utils", () => {
 			expect(conf.warn.useMathRandom).toBeFalsy();
 			expect(conf.warn.drawOutOfCanvas).toBeFalsy();
 			expect(conf.warn.drawDestinationEmpty).toBeFalsy();
-			expect(conf.displayOption.fitsToScreen).toBeTruthy();
-			expect(conf.displayOption.backgroundImage).toBe("./some/path");
-			expect(conf.displayOption.backgroundColor).toBe("blue");
-			expect(conf.displayOption.showsGrid).toBeFalsy();
-			expect(conf.displayOption.showsProfiler).toBeTruthy();
-			expect(conf.displayOption.showsDesignGuideline).toBeFalsy();
+			expect(conf.displayOptions.fitsToScreen).toBeTruthy();
+			expect(conf.displayOptions.backgroundImage).toBe("./some/path");
+			expect(conf.displayOptions.backgroundColor).toBe("blue");
+			expect(conf.displayOptions.showsGrid).toBeFalsy();
+			expect(conf.displayOptions.showsProfiler).toBeTruthy();
+			expect(conf.displayOptions.showsDesignGuideline).toBeFalsy();
 		});
 
 		it("Assign to displayOption if backgroundImage, backgroundColor exist and displayOption does not exist", () => {
 			const conf = utils.normalize(conf2);
-			expect(conf.displayOption.backgroundColor).toBe("red");
-			expect(conf.displayOption.backgroundImage).toBe("./some/path");
+			expect(conf.displayOptions.backgroundColor).toBe("red");
+			expect(conf.displayOptions.backgroundImage).toBe("./some/path");
 		});
 
 		it("When only autoSendEventName, nothing changes", () => {

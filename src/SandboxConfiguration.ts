@@ -13,12 +13,12 @@ export interface SandboxConfiguration {
 	autoSendEventName?: string | null;
 	/**
 	 * @deprecated 非推奨。将来削除する予定。
-	 * `displayOption.backgroundImage` の使用が正となる。displayOption.backgroundImage が存在する場合にこの値は無視される。
+	 * `displayOptions.backgroundImage` の使用が正となる。displayOptions.backgroundImage が存在する場合にこの値は無視される。
 	 */
 	backgroundImage?: string | null;
 	/**
 	 * @deprecated 非推奨。将来削除する予定。
-	 * `displayOption.backgroundColor` の使用が正となる。displayOption.backgroundColor が存在する場合にこの値は無視される。
+	 * `displayOptions.backgroundColor` の使用が正となる。displayOptions.backgroundColor が存在する場合にこの値は無視される。
 	 */
 	backgroundColor?: string | null;
 	/**
@@ -79,7 +79,7 @@ export interface SandboxConfiguration {
 	/**
 	 * s各種表示設定
 	 */
-	displayOption?: {
+	displayOptions?: {
 		/**
 		 * ゲーム画面をブラウザサイズに合わせて拡縮するか。
 		 */
