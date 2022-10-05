@@ -132,7 +132,12 @@ describe("utils", () => {
 			expect(conf.warn.useMathRandom).toBeTruthy();
 			expect(conf.warn.drawOutOfCanvas).toBeTruthy();
 			expect(conf.warn.drawDestinationEmpty).toBeTruthy();
-			expect(conf.displayOptions).toEqual({});
+			expect(conf.displayOptions.fitsToScreen).toBeFalsy();
+			expect(conf.displayOptions.backgroundImage).toBe("");
+			expect(conf.displayOptions.backgroundColor).toBe("");
+			expect(conf.displayOptions.showsGrid).toBeFalsy();
+			expect(conf.displayOptions.showsProfiler).toBeFalsy();
+			expect(conf.displayOptions.showsDesignGuideline).toBeFalsy();
 		});
 
 		it("autoSendEvents and autoSendEventName exist", () => {

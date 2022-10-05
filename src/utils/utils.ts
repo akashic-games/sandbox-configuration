@@ -29,7 +29,7 @@ export function getServerExternalFactory(sandboxConfig: SandboxConfiguration): (
  * 正規化
  */
 export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandboxConfiguration {
-	const { events, autoSendEvents, autoSendEventName, warn } = sandboxConfig;
+	const { events, autoSendEvents, autoSendEventName, warn, displayOptions } = sandboxConfig;
 	let autoSendEventsValue = null;
 	if (!autoSendEventName && events && autoSendEvents && events[autoSendEvents] instanceof Array) {
 		// TODO: `autoSendEvents` は非推奨。`autoSendEvents` の削除時にこのパスも削除する。
@@ -38,16 +38,24 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 		autoSendEventsValue = autoSendEvents;
 	}
 
+	const displayOptionsValue = {
+		fitsToScreen: displayOptions?.fitsToScreen ?? false,
+		backgroundImage: displayOptions?.backgroundImage ?? "",
+		backgroundColor: displayOptions?.backgroundColor ?? "",
+		showsGrid: displayOptions?.showsGrid ?? false,
+		showsProfiler: displayOptions?.showsProfiler ?? false,
+		showsDesignGuideline: displayOptions?.showsDesignGuideline ?? false
+	};
+
 	// TODO: `backgroundColor`, `backgroundImage` は非推奨。削除時にこのパスも削除。
 	// `backgroundColor`, `backgroundImage` のみの場合、displayOptions に値を差し替える。
-	if (!sandboxConfig.displayOptions) sandboxConfig.displayOptions = {};
-	if (sandboxConfig.backgroundColor) {
+	if (sandboxConfig.backgroundImage) {
 		console.warn("[deprecated] `backgroundImage` in sandbox.config.js is deprecated. Please use `displayOption.backgroundImage`.");
-		if (!sandboxConfig.displayOptions.backgroundImage) sandboxConfig.displayOptions.backgroundImage = sandboxConfig.backgroundImage;
+		if (!displayOptionsValue.backgroundImage) displayOptionsValue.backgroundImage = sandboxConfig.backgroundImage;
 	}
 	if (sandboxConfig.backgroundColor) {
 		console.warn("[deprecated] `backgroundColor` in sandbox.config.js is deprecated. Please use `displayOption.backgroundColor`.");
-		if (!sandboxConfig.displayOptions.backgroundColor) sandboxConfig.displayOptions.backgroundColor = sandboxConfig.backgroundColor;
+		if (!displayOptionsValue.backgroundColor) displayOptionsValue.backgroundColor = sandboxConfig.backgroundColor;
 	}
 
 	const warnValue = {
@@ -73,6 +81,6 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 			external: { ...(sandboxConfig.client?.external ?? {}) }
 		},
 		warn: warnValue,
-		displayOptions: { ...(sandboxConfig.displayOptions ?? {}) }
+		displayOptions: displayOptionsValue
 	};
 }
