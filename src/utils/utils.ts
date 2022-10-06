@@ -40,8 +40,8 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 
 	const displayOptionsValue = {
 		fitsToScreen: displayOptions?.fitsToScreen ?? false,
-		backgroundImage: displayOptions?.backgroundImage ?? "",
-		backgroundColor: displayOptions?.backgroundColor ?? "",
+		backgroundImage: displayOptions?.backgroundImage ?? null,
+		backgroundColor: displayOptions?.backgroundColor ?? null,
 		showsGrid: displayOptions?.showsGrid ?? false,
 		showsProfiler: displayOptions?.showsProfiler ?? false,
 		showsDesignGuideline: displayOptions?.showsDesignGuideline ?? false
@@ -51,11 +51,12 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 	// `backgroundColor`, `backgroundImage` のみの場合、displayOptions に値を差し替える。
 	if (sandboxConfig.backgroundImage) {
 		console.warn("[deprecated] `backgroundImage` in sandbox.config.js is deprecated. Please use `displayOption.backgroundImage`.");
-		if (!displayOptionsValue.backgroundImage) displayOptionsValue.backgroundImage = sandboxConfig.backgroundImage;
+		if (displayOptionsValue.backgroundImage === null) displayOptionsValue.backgroundImage = sandboxConfig.backgroundImage;
+
 	}
 	if (sandboxConfig.backgroundColor) {
 		console.warn("[deprecated] `backgroundColor` in sandbox.config.js is deprecated. Please use `displayOption.backgroundColor`.");
-		if (!displayOptionsValue.backgroundColor) displayOptionsValue.backgroundColor = sandboxConfig.backgroundColor;
+		if (displayOptionsValue.backgroundColor === null) displayOptionsValue.backgroundColor = sandboxConfig.backgroundColor;
 	}
 
 	const warnValue = {

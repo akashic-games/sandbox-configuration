@@ -133,8 +133,8 @@ describe("utils", () => {
 			expect(conf.warn.drawOutOfCanvas).toBeTruthy();
 			expect(conf.warn.drawDestinationEmpty).toBeTruthy();
 			expect(conf.displayOptions.fitsToScreen).toBeFalsy();
-			expect(conf.displayOptions.backgroundImage).toBe("");
-			expect(conf.displayOptions.backgroundColor).toBe("");
+			expect(conf.displayOptions.backgroundImage).toBeNull();
+			expect(conf.displayOptions.backgroundColor).toBeNull();
 			expect(conf.displayOptions.showsGrid).toBeFalsy();
 			expect(conf.displayOptions.showsProfiler).toBeFalsy();
 			expect(conf.displayOptions.showsDesignGuideline).toBeFalsy();
