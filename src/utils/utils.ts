@@ -52,7 +52,6 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 	if (sandboxConfig.backgroundImage) {
 		console.warn("[deprecated] `backgroundImage` in sandbox.config.js is deprecated. Please use `displayOption.backgroundImage`.");
 		if (displayOptionsValue.backgroundImage === null) displayOptionsValue.backgroundImage = sandboxConfig.backgroundImage;
-
 	}
 	if (sandboxConfig.backgroundColor) {
 		console.warn("[deprecated] `backgroundColor` in sandbox.config.js is deprecated. Please use `displayOption.backgroundColor`.");
