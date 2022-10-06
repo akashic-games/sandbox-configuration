@@ -25,6 +25,14 @@ describe("utils", () => {
 			useMathRandom: false,
 			drawOutOfCanvas: false,
 			drawDestinationEmpty: false
+		},
+		displayOptions: {
+			fitsToScreen: true,
+			backgroundImage: "./some/path",
+			backgroundColor: "blue",
+			showsGrid: false,
+			showsProfiler: true,
+			showsDesignGuideline: false
 		}
 	};
 	const conf2: SandboxConfiguration = {
@@ -32,6 +40,8 @@ describe("utils", () => {
 		events: {
 			autoSendEventName2: []
 		},
+		backgroundImage: "./some/path",
+		backgroundColor: "red",
 		server: {
 			external: {
 				fooPlugin: "./fooPlugin.js"
@@ -110,8 +120,6 @@ describe("utils", () => {
 			const conf = utils.normalize({});
 			expect(conf.autoSendEventName).toBeNull();
 			expect(conf.hasOwnProperty("autoSendEvents")).toBeFalsy();
-			expect(conf.backgroundImage).toBeNull();
-			expect(conf.backgroundColor).toBeNull();
 			expect(conf.showMenu).toBeFalsy();
 			expect(conf.events).toEqual({});
 			expect(conf.arguments).toEqual({});
@@ -124,13 +132,17 @@ describe("utils", () => {
 			expect(conf.warn.useMathRandom).toBeTruthy();
 			expect(conf.warn.drawOutOfCanvas).toBeTruthy();
 			expect(conf.warn.drawDestinationEmpty).toBeTruthy();
+			expect(conf.displayOptions.fitsToScreen).toBeFalsy();
+			expect(conf.displayOptions.backgroundImage).toBeNull();
+			expect(conf.displayOptions.backgroundColor).toBeNull();
+			expect(conf.displayOptions.showsGrid).toBeFalsy();
+			expect(conf.displayOptions.showsProfiler).toBeFalsy();
+			expect(conf.displayOptions.showsDesignGuideline).toBeFalsy();
 		});
 
 		it("autoSendEvents and autoSendEventName exist", () => {
 			const conf = utils.normalize(conf1);
 			expect(conf.autoSendEventName).toBe("autoSendEventName1");
-			expect(conf.backgroundImage).toBe("./path");
-			expect(conf.backgroundColor).toBe("red");
 			expect(conf.showMenu).toBeTruthy();
 			expect(conf.events).toEqual({ autoSendEvents1: [], autoSendEventName1: [] });
 			expect(conf.arguments).toEqual({});
@@ -143,6 +155,18 @@ describe("utils", () => {
 			expect(conf.warn.useMathRandom).toBeFalsy();
 			expect(conf.warn.drawOutOfCanvas).toBeFalsy();
 			expect(conf.warn.drawDestinationEmpty).toBeFalsy();
+			expect(conf.displayOptions.fitsToScreen).toBeTruthy();
+			expect(conf.displayOptions.backgroundImage).toBe("./some/path");
+			expect(conf.displayOptions.backgroundColor).toBe("blue");
+			expect(conf.displayOptions.showsGrid).toBeFalsy();
+			expect(conf.displayOptions.showsProfiler).toBeTruthy();
+			expect(conf.displayOptions.showsDesignGuideline).toBeFalsy();
+		});
+
+		it("Assign to displayOption if backgroundImage, backgroundColor exist and displayOption does not exist", () => {
+			const conf = utils.normalize(conf2);
+			expect(conf.displayOptions.backgroundColor).toBe("red");
+			expect(conf.displayOptions.backgroundImage).toBe("./some/path");
 		});
 
 		it("When only autoSendEventName, nothing changes", () => {

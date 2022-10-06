@@ -3,8 +3,7 @@
  */
 export interface SandboxConfiguration {
 	/**
-	 * @deprecated 非推奨。将来削除する予定。
-	 * autoSendEventName の使用が正となる。autoSendEventName が存在する場合にこの値は無視される。
+	 * @deprecated 非推奨。将来削除する予定。代わりに `autoSendEventName` を利用すること。 autoSendEventName が存在する場合にこの値は無視される。
 	 */
 	autoSendEvents?: string | null;
 	/**
@@ -12,11 +11,11 @@ export interface SandboxConfiguration {
 	 */
 	autoSendEventName?: string | null;
 	/**
-	 * 画像のローカルパス、もしくは URL を指定することでコンテンツ実行画面の背景に画像を表示する。
+	 * @deprecated 非推奨。将来削除する予定。代わりに `displayOptions.backgroundImage` を利用すること。displayOptions.backgroundImage が存在する場合にこの値は無視される。
 	 */
 	backgroundImage?: string | null;
 	/**
-	 * コンテンツ実行画面の背景色。
+	 * @deprecated 非推奨。将来削除する予定。代わりに `displayOptions.backgroundColor` を利用すること。displayOptions.backgroundColor が存在する場合にこの値は無視される。
 	 */
 	backgroundColor?: string | null;
 	/**
@@ -51,7 +50,7 @@ export interface SandboxConfiguration {
 		};
 	};
 	/**
-	 * サーバ側で利用できる外部プラグインを登録
+	 * サーバ側で利用できる外部プラグインを登録。
 	 */
 	server?: {
 		external?: {
@@ -59,26 +58,57 @@ export interface SandboxConfiguration {
 		};
 	};
 	/**
-	 * 各種警告表示設定
-	 * 真の場合は警告を表示する
+	 * 各種警告表示設定。
+	 * 真の場合は警告を表示する。
 	 */
 	warn?: {
-		/** ES6以降でサポートされるオブジェクトが使われている場合警告を出すかどうか  */
+		/** ES6以降でサポートされるオブジェクトが使われている場合警告を出すかどうか。  */
 		es6?: boolean;
-		/** Date の警告を出すかどうか */
+		/** Date の警告を出すかどうか。 */
 		useDate?: boolean;
-		/** Math.random() の警告を出すかどうか */
+		/** Math.random() の警告を出すかどうか。 */
 		useMathRandom?: boolean;
-		/** 範囲外描画されている場合に警告を出すかどうか */
+		/** 範囲外描画されている場合に警告を出すかどうか。 */
 		drawOutOfCanvas?: boolean;
-		/** 描画先が空の場合に警告を出すかどうか */
+		/** 描画先が空の場合に警告を出すかどうか。 */
 		drawDestinationEmpty?: boolean;
+	};
+	/**
+	 * 各種表示設定。
+	 */
+	displayOptions?: {
+		/**
+		 * ゲーム画面をブラウザサイズに合わせて拡縮するか。
+		 */
+		fitsToScreen?: boolean | null;
+		/**
+		 * 画像のローカルパス、もしくは URL を指定することでコンテンツ実行画面の背景に画像を表示する。
+		 */
+		backgroundImage?: string | null;
+		/**
+		 * コンテンツ実行画面の背景色。
+		 */
+		backgroundColor?: string | null;
+		/**
+		 * グリッドを表示するか。
+		 */
+		showsGrid?: boolean | null;
+		/**
+		 * FPS などを表示するか。
+		 */
+		showsProfiler?: boolean | null;
+		/**
+		 * ニコ生ゲームのデザインガイドライン画像を表示するか。
+		 */
+		showsDesignGuideline?: boolean | null;
 	};
 }
 
+type DeprecatedProperties = "autoSendEvents" | "backgroundImage" | "backgroundColor";
 /**
  * 正規化した SandboxConfiguration のインターフェース
  */
-export interface NormalizedSandboxConfiguration extends Required<Omit<SandboxConfiguration, "autoSendEvents">> {
+export interface NormalizedSandboxConfiguration extends Required<Omit<SandboxConfiguration, DeprecatedProperties>> {
 	warn: Required<Required<SandboxConfiguration>["warn"]>;
+	displayOptions: Required<Required<SandboxConfiguration>["displayOptions"]>;
 }

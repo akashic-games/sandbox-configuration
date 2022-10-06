@@ -29,13 +29,33 @@ export function getServerExternalFactory(sandboxConfig: SandboxConfiguration): (
  * 正規化
  */
 export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandboxConfiguration {
-	const { events, autoSendEvents, autoSendEventName, warn } = sandboxConfig;
+	const { events, autoSendEvents, autoSendEventName, warn, displayOptions } = sandboxConfig;
 	let autoSendEventsValue = null;
 	if (!autoSendEventName && events && autoSendEvents && events[autoSendEvents] instanceof Array) {
 		// TODO: `autoSendEvents` は非推奨。`autoSendEvents` の削除時にこのパスも削除する。
 		// 非推奨の `autoSendEvents` のみの場合、`autoSendEventName` に値を差し替える。
 		console.warn("[deprecated] `autoSendEvents` in sandbox.config.js is deprecated. Please use `autoSendEventName`.");
 		autoSendEventsValue = autoSendEvents;
+	}
+
+	const displayOptionsValue = {
+		fitsToScreen: displayOptions?.fitsToScreen ?? false,
+		backgroundImage: displayOptions?.backgroundImage ?? null,
+		backgroundColor: displayOptions?.backgroundColor ?? null,
+		showsGrid: displayOptions?.showsGrid ?? false,
+		showsProfiler: displayOptions?.showsProfiler ?? false,
+		showsDesignGuideline: displayOptions?.showsDesignGuideline ?? false
+	};
+
+	// TODO: `backgroundColor`, `backgroundImage` は非推奨。削除時にこのパスも削除。
+	// `backgroundColor`, `backgroundImage` のみの場合、displayOptions に値を差し替える。
+	if (sandboxConfig.backgroundImage) {
+		console.warn("[deprecated] `backgroundImage` in sandbox.config.js is deprecated. Please use `displayOption.backgroundImage`.");
+		if (displayOptionsValue.backgroundImage === null) displayOptionsValue.backgroundImage = sandboxConfig.backgroundImage;
+	}
+	if (sandboxConfig.backgroundColor) {
+		console.warn("[deprecated] `backgroundColor` in sandbox.config.js is deprecated. Please use `displayOption.backgroundColor`.");
+		if (displayOptionsValue.backgroundColor === null) displayOptionsValue.backgroundColor = sandboxConfig.backgroundColor;
 	}
 
 	const warnValue = {
@@ -49,8 +69,6 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 	return {
 		...sandboxConfig, // 型に存在しない値が残るようにする
 		autoSendEventName: autoSendEventsValue ?? sandboxConfig.autoSendEventName ?? null,
-		backgroundImage: sandboxConfig.backgroundImage ?? null,
-		backgroundColor: sandboxConfig.backgroundColor ?? null,
 		showMenu: sandboxConfig.showMenu ?? false,
 		events: sandboxConfig.events ?? {},
 		arguments: sandboxConfig.arguments ?? {},
@@ -62,6 +80,7 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 		client: {
 			external: { ...(sandboxConfig.client?.external ?? {}) }
 		},
-		warn: warnValue
+		warn: warnValue,
+		displayOptions: displayOptionsValue
 	};
 }
