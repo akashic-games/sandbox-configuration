@@ -104,6 +104,10 @@ export interface SandboxConfiguration {
 	};
 	/**
 	 * serve で新規インスタンス表示時のウィンドウサイズを設定。
+	 * 省略時は "auto" となる。
+	 * {width: number; height: number}: 指定値でウィンドウを表示。
+	 * auto: game.json の width,height の値を元にウィンドウを表示。
+	 * inherit: 親ウィンドウのサイズを引き継いでウィンドウを表示。
 	 */
 	windowSize?: { width: number; height: number } | "auto" | "inherit";
 }
