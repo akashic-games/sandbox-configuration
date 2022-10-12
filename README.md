@@ -26,8 +26,9 @@ sandbox.config.js の型定義を提供します。
   * backgroundImage: 画像のローカルパス、もしくは URL を指定することでコンテンツ実行画面の背景に画像を表示
   * backgroundColor: コンテンツ実行画面の背景色
   * showsGrid: グリッドを表示するか
-  * showsProfiler: FPS などを表示するか。
+  * showsProfiler: FPS などを表示するか
   * showsDesignGuideline: ニコ生ゲームのデザインガイドライン画像を表示するか
+* windowSize: serve で新規インスタンス表示時のウィンドウサイズを設定
 
 詳細は [SandboxConfiguration.ts の定義とコメント][SandboxConfiguration-link]を参照してください。
 
