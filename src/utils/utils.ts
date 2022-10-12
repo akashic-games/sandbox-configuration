@@ -66,6 +66,11 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 		drawDestinationEmpty: warn?.drawDestinationEmpty ?? true
 	};
 
+	if (typeof sandboxConfig.windowSize === "object") {
+		if (!sandboxConfig.windowSize.width) console.warn("No width specified for windowSize.");
+		if (!sandboxConfig.windowSize.height) console.warn("No height specified for windowSize.");
+	}
+
 	return {
 		...sandboxConfig, // 型に存在しない値が残るようにする
 		autoSendEventName: autoSendEventsValue ?? sandboxConfig.autoSendEventName ?? null,
@@ -81,6 +86,7 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 			external: { ...(sandboxConfig.client?.external ?? {}) }
 		},
 		warn: warnValue,
-		displayOptions: displayOptionsValue
+		displayOptions: displayOptionsValue,
+		windowSize: sandboxConfig.windowSize ?? "auto"
 	};
 }

@@ -102,6 +102,10 @@ export interface SandboxConfiguration {
 		 */
 		showsDesignGuideline?: boolean | null;
 	};
+	/**
+	 * serve で新規インスタンス表示時のウィンドウサイズを設定。
+	 */
+	windowSize?: { width: number; height: number } | "auto" | "inherit";
 }
 
 type DeprecatedProperties = "autoSendEvents" | "backgroundImage" | "backgroundColor";
