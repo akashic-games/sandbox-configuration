@@ -109,7 +109,7 @@ export interface SandboxConfiguration {
 	 * auto: game.json の width,height の値を元にウィンドウを表示。
 	 * inherit: 親ウィンドウのサイズを引き継いでウィンドウを表示。
 	 */
-	windowSize?: { width: number; height: number } | "auto" | "inherit";
+	windowSize?: { width?: number | null; height?: number | null } | "auto" | "inherit";
 }
 
 type DeprecatedProperties = "autoSendEvents" | "backgroundImage" | "backgroundColor";

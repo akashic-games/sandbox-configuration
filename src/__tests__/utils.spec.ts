@@ -188,13 +188,13 @@ describe("utils", () => {
 		});
 
 		it("If there is no windowSize width or height", () => {
-			let conf = utils.normalize({ windowSize: { width: 100 } } as any);
+			let conf = utils.normalize({ windowSize: { width: 100 } });
 			expect(conf.windowSize).toEqual({ width: 100, height: undefined });
 
-			conf = utils.normalize({ windowSize: { height: 100 } } as any);
+			conf = utils.normalize({ windowSize: { height: 100 } });
 			expect(conf.windowSize).toEqual({ width: undefined, height: 100 });
 
-			conf = utils.normalize({ windowSize: {} } as any);
+			conf = utils.normalize({ windowSize: {} });
 			expect(conf.windowSize).toEqual({ width: undefined, height: undefined });
 		});
 	});
