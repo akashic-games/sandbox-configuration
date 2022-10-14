@@ -33,7 +33,8 @@ describe("utils", () => {
 			showsGrid: false,
 			showsProfiler: true,
 			showsDesignGuideline: false
-		}
+		},
+		windowSize: { width: 100, height: 100 }
 	};
 	const conf2: SandboxConfiguration = {
 		autoSendEventName: "autoSendEventName2",
@@ -52,7 +53,8 @@ describe("utils", () => {
 		autoSendEvents: "autoSendEvents3",
 		events: {
 			autoSendEvents3: []
-		}
+		},
+		windowSize: "inherit"
 	};
 
 	describe("getServerExternalValue", () => {
@@ -138,6 +140,7 @@ describe("utils", () => {
 			expect(conf.displayOptions.showsGrid).toBeFalsy();
 			expect(conf.displayOptions.showsProfiler).toBeFalsy();
 			expect(conf.displayOptions.showsDesignGuideline).toBeFalsy();
+			expect(conf.windowSize).toBe("auto");
 		});
 
 		it("autoSendEvents and autoSendEventName exist", () => {
@@ -161,6 +164,7 @@ describe("utils", () => {
 			expect(conf.displayOptions.showsGrid).toBeFalsy();
 			expect(conf.displayOptions.showsProfiler).toBeTruthy();
 			expect(conf.displayOptions.showsDesignGuideline).toBeFalsy();
+			expect(conf.windowSize).toEqual({ width: 100, height: 100 });
 		});
 
 		it("Assign to displayOption if backgroundImage, backgroundColor exist and displayOption does not exist", () => {
@@ -180,6 +184,18 @@ describe("utils", () => {
 			const conf = utils.normalize(conf3);
 			expect(conf.autoSendEventName).toBe("autoSendEvents3");
 			expect(conf.events).toEqual({ autoSendEvents3: [] });
+			expect(conf.windowSize).toBe("inherit");
+		});
+
+		it("If there is no windowSize width or height", () => {
+			let conf = utils.normalize({ windowSize: { width: 100 } });
+			expect(conf.windowSize).toEqual({ width: 100, height: null });
+
+			conf = utils.normalize({ windowSize: { height: 100 } });
+			expect(conf.windowSize).toEqual({ width: null, height: 100 });
+
+			conf = utils.normalize({ windowSize: {} });
+			expect(conf.windowSize).toEqual({ width: null, height: null });
 		});
 	});
 });

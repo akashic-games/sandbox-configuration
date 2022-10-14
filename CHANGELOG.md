@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 2.3.0
+* `windowSize` の型を追加
+
 ## 2.2.0
 * `displayOptions` の型を追加
 * `backgroundImage`, `backgroundColor` を非推奨へ

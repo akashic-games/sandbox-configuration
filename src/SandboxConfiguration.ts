@@ -102,6 +102,14 @@ export interface SandboxConfiguration {
 		 */
 		showsDesignGuideline?: boolean | null;
 	};
+	/**
+	 * serve で新規インスタンス表示時のウィンドウサイズを設定。
+	 * 省略時は "auto" となる。
+	 * {width: number; height: number}: 指定値でウィンドウを表示。
+	 * auto: game.json の width,height の値を元にウィンドウを表示。
+	 * inherit: 親ウィンドウのサイズを引き継いでウィンドウを表示。
+	 */
+	windowSize?: { width?: number | null; height?: number | null } | "auto" | "inherit";
 }
 
 type DeprecatedProperties = "autoSendEvents" | "backgroundImage" | "backgroundColor";
@@ -111,4 +119,5 @@ type DeprecatedProperties = "autoSendEvents" | "backgroundImage" | "backgroundCo
 export interface NormalizedSandboxConfiguration extends Required<Omit<SandboxConfiguration, DeprecatedProperties>> {
 	warn: Required<Required<SandboxConfiguration>["warn"]>;
 	displayOptions: Required<Required<SandboxConfiguration>["displayOptions"]>;
+	windowSize: Required<Required<SandboxConfiguration>["windowSize"]>;
 }
