@@ -29,7 +29,7 @@ export function getServerExternalFactory(sandboxConfig: SandboxConfiguration): (
  * 正規化
  */
 export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandboxConfiguration {
-	const { events, autoSendEvents, autoSendEventName, warn, displayOptions } = sandboxConfig;
+	const { events, autoSendEvents, autoSendEventName, warn, displayOptions, windowSize } = sandboxConfig;
 	let autoSendEventsValue = null;
 	if (!autoSendEventName && events && autoSendEvents && events[autoSendEvents] instanceof Array) {
 		// TODO: `autoSendEvents` は非推奨。`autoSendEvents` の削除時にこのパスも削除する。
@@ -67,13 +67,13 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 	};
 
 	let windowSizeValue;
-	if (typeof sandboxConfig.windowSize === "object") {
+	if (windowSize != null && typeof windowSize === "object") {
 		windowSizeValue = {
-			width: sandboxConfig.windowSize.width ?? null,
-			height: sandboxConfig.windowSize.height ?? null,
+			width: windowSize.width ?? null,
+			height: windowSize.height ?? null
 		};
 	} else {
-		windowSizeValue = sandboxConfig.windowSize;
+		windowSizeValue = windowSize;
 	}
 
 	return {

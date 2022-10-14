@@ -28,7 +28,7 @@ sandbox.config.js の型定義を提供します。
   * showsGrid: グリッドを表示するか
   * showsProfiler: FPS などを表示するか
   * showsDesignGuideline: ニコ生ゲームのデザインガイドライン画像を表示するか
-* windowSize: serve で新規インスタンス表示時のウィンドウサイズを設定
+* windowSize: serve で新規インスタンス表示時のウィンドウサイズ
 
 詳細は [SandboxConfiguration.ts の定義とコメント][SandboxConfiguration-link]を参照してください。
 
