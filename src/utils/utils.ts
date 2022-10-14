@@ -66,6 +66,16 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 		drawDestinationEmpty: warn?.drawDestinationEmpty ?? true
 	};
 
+	let windowSizeValue;
+	if (typeof sandboxConfig.windowSize === "object") {
+		windowSizeValue = {
+			width: sandboxConfig.windowSize.width ?? null,
+			height: sandboxConfig.windowSize.height ?? null,
+		};
+	} else {
+		windowSizeValue = sandboxConfig.windowSize;
+	}
+
 	return {
 		...sandboxConfig, // 型に存在しない値が残るようにする
 		autoSendEventName: autoSendEventsValue ?? sandboxConfig.autoSendEventName ?? null,
@@ -82,6 +92,6 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 		},
 		warn: warnValue,
 		displayOptions: displayOptionsValue,
-		windowSize: sandboxConfig.windowSize ?? "auto"
+		windowSize: windowSizeValue ?? "auto"
 	};
 }

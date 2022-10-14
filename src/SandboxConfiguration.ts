@@ -119,4 +119,5 @@ type DeprecatedProperties = "autoSendEvents" | "backgroundImage" | "backgroundCo
 export interface NormalizedSandboxConfiguration extends Required<Omit<SandboxConfiguration, DeprecatedProperties>> {
 	warn: Required<Required<SandboxConfiguration>["warn"]>;
 	displayOptions: Required<Required<SandboxConfiguration>["displayOptions"]>;
+	windowSize: Required<Required<SandboxConfiguration>["windowSize"]>;
 }
