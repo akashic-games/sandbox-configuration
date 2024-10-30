@@ -17,7 +17,7 @@ export function getServerExternalFactory(sandboxConfig: SandboxConfiguration): (
 				// eslint-disable-next-line @typescript-eslint/no-var-requires
 				const pluginValue = require(path.resolve(server.external![pluginName])); // require() は結果をキャッシュするので複数回実行しても同じ値を使っている
 				externalFactory[pluginName] = pluginValue();
-			} catch (e) {
+			} catch (_e) {
 				throw new Error(`Failed to evaluating externalScript (${pluginName})`);
 			}
 		}
