@@ -65,7 +65,7 @@
   "dependencies": {
   },
   "devDependencies": {
-    "@akashic/eslint-config": "^3.0.0",
+    "@akashic/eslint-config": "^3.0.2",
     "@akashic/remark-preset-lint": "^0.1.2",
     "@types/jest": "^29.5.6",
     "eslint-config-prettier": "^9.0.0",

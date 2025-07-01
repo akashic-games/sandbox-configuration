@@ -14,7 +14,7 @@ export function getServerExternalFactory(sandboxConfig: SandboxConfiguration): (
 
 		for (const pluginName of Object.keys(server.external!)) {
 			try {
-				// eslint-disable-next-line @typescript-eslint/no-var-requires
+				// eslint-disable-next-line @typescript-eslint/no-require-imports
 				const pluginValue = require(path.resolve(server.external![pluginName])); // require() は結果をキャッシュするので複数回実行しても同じ値を使っている
 				externalFactory[pluginName] = pluginValue();
 			} catch (_e) {
