@@ -64,7 +64,7 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 		useMathRandom: warn?.useMathRandom ?? true,
 		drawOutOfCanvas: warn?.drawOutOfCanvas ?? true,
 		drawDestinationEmpty: warn?.drawDestinationEmpty ?? true,
-		surfaceSizeIsDecimal: warn?.surfaceSizeIsDecimal ?? true
+		createNonIntegerSurface: warn?.createNonIntegerSurface ?? true
 	};
 
 	let windowSizeValue;

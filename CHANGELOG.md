@@ -1,7 +1,7 @@
 # CHANGELOG
 
 ## 2.4.0
-* `warn` に `surfaceSizeIsDecimal` を追加
+* `warn` に `createNonIntegerSurface` を追加
 
 ## 2.3.0
 * `windowSize` の型を追加

@@ -73,7 +73,7 @@ export interface SandboxConfiguration {
 		/** 描画先が空の場合に警告を出すかどうか。 */
 		drawDestinationEmpty?: boolean;
 		/** surface のサイズが小数点の場合に警告を出すかどうか。 */
-		surfaceSizeIsDecimal?: boolean;
+		createNonIntegerSurface?: boolean;
 	};
 	/**
 	 * 各種表示設定。
