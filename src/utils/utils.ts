@@ -63,7 +63,8 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 		useDate: warn?.useDate ?? true,
 		useMathRandom: warn?.useMathRandom ?? true,
 		drawOutOfCanvas: warn?.drawOutOfCanvas ?? true,
-		drawDestinationEmpty: warn?.drawDestinationEmpty ?? true
+		drawDestinationEmpty: warn?.drawDestinationEmpty ?? true,
+		surfaceSizeIsDecimal: warn?.surfaceSizeIsDecimal ?? true
 	};
 
 	let windowSizeValue;
