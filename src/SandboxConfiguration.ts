@@ -68,6 +68,8 @@ export interface SandboxConfiguration {
 		useDate?: boolean;
 		/** Math.random() の警告を出すかどうか。 */
 		useMathRandom?: boolean;
+		/** Math.sin(), Math.cos() の警告を出すかどうか。 */
+		useMathBasicTrig?: boolean;
 		/** 範囲外描画されている場合に警告を出すかどうか。 */
 		drawOutOfCanvas?: boolean;
 		/** 描画先が空の場合に警告を出すかどうか。 */
