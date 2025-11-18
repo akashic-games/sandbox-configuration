@@ -23,6 +23,7 @@ describe("utils", () => {
 			es6: false,
 			useDate: false,
 			useMathRandom: false,
+			useMathSinCosTan: false,
 			drawOutOfCanvas: false,
 			drawDestinationEmpty: false
 		},
@@ -132,6 +133,7 @@ describe("utils", () => {
 			expect(conf.warn.es6).toBeTruthy();
 			expect(conf.warn.useDate).toBeTruthy();
 			expect(conf.warn.useMathRandom).toBeTruthy();
+			expect(conf.warn.useMathSinCosTan).toBeTruthy();
 			expect(conf.warn.drawOutOfCanvas).toBeTruthy();
 			expect(conf.warn.drawDestinationEmpty).toBeTruthy();
 			expect(conf.displayOptions.fitsToScreen).toBeFalsy();
@@ -156,6 +158,7 @@ describe("utils", () => {
 			expect(conf.warn.es6).toBeFalsy();
 			expect(conf.warn.useDate).toBeFalsy();
 			expect(conf.warn.useMathRandom).toBeFalsy();
+			expect(conf.warn.useMathSinCosTan).toBeFalsy();
 			expect(conf.warn.drawOutOfCanvas).toBeFalsy();
 			expect(conf.warn.drawDestinationEmpty).toBeFalsy();
 			expect(conf.displayOptions.fitsToScreen).toBeTruthy();

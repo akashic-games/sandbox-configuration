@@ -62,10 +62,11 @@ export function normalize(sandboxConfig: SandboxConfiguration): NormalizedSandbo
 		es6: warn?.es6 ?? true,
 		useDate: warn?.useDate ?? true,
 		useMathRandom: warn?.useMathRandom ?? true,
+		useMathSinCosTan: warn?.useMathSinCosTan ?? true,
 		drawOutOfCanvas: warn?.drawOutOfCanvas ?? true,
 		drawDestinationEmpty: warn?.drawDestinationEmpty ?? true,
 		createNonIntegerSurface: warn?.createNonIntegerSurface ?? true
-	};
+	} satisfies NormalizedSandboxConfiguration["warn"];
 
 	let windowSizeValue;
 	if (windowSize != null && typeof windowSize === "object") {
