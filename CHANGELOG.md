@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 2.5.0
+* `warn` に `useMathSinCosTan` を追加
+
 ## 2.4.0
 * `warn` に `createNonIntegerSurface` を追加
 
