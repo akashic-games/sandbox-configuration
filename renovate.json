@@ -7,9 +7,15 @@
       "matchPackagePatterns": [
         "*"
       ],
-      "excludePackagePatterns": ["^@akashic/"],
+      "excludePackagePatterns": [
+        "^@akashic/"
+      ],
       "groupName": "all dependencies",
       "groupSlug": "all"
     }
-  ]
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "minimumReleaseAge": null
+  }
 }
